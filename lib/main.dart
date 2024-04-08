@@ -1,7 +1,15 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
+import './view/shopping_lists_view.dart';
+
 void main() {
-  runApp(const MainApp());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (BuildContext context) => const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -9,12 +17,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Navegação',
+      initialRoute: 'shopping_lists',
+      routes: {
+        'shopping_lists': (context) => const ShoppingListsView(),
+      },
     );
   }
 }
