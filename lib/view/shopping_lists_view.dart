@@ -52,7 +52,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                 mainAxisSpacing: 8.0),
             itemBuilder: (context, index) => Card(
               child: InkWell(
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, '/shoppingListItems'),
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

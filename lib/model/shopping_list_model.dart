@@ -1,12 +1,16 @@
+import '../model/shopping_list_item_model.dart';
+
 class ShoppingListModel {
   String id;
   String name;
   String description;
+  List<ShoppingListItemModel>? items;
 
   ShoppingListModel({
     required this.id,
     required this.name,
     required this.description,
+    this.items,
   });
 
   Map<String, dynamic> toJson(ShoppingListModel shoppingList) {

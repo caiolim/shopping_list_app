@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
 import './view/shopping_lists_view.dart';
+import './view/shopping_list_items_view.dart';
 
 void main() {
   runApp(
@@ -20,9 +21,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Navegação',
-      initialRoute: 'shopping_lists',
+      initialRoute: '/shopping_lists',
       routes: {
-        'shopping_lists': (context) => const ShoppingListsView(),
+        '/shopping_lists': (context) => const ShoppingListsView(),
+        '/shoppingListItems': (context) => const ShoppingListItemsView(),
       },
     );
   }

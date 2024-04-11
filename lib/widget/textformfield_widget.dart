@@ -8,6 +8,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final int? maxLength;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final InputBorder? inputBorder;
 
   const TextFormFieldWidget({
     super.key,
@@ -18,6 +19,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.maxLength,
     this.controller,
     this.validator,
+    this.inputBorder,
   });
 
   @override
@@ -27,7 +29,7 @@ class TextFormFieldWidget extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+        border: inputBorder ?? const OutlineInputBorder(),
         label: label == null ? null : Text(label!),
         hintText: hintText,
       ),
