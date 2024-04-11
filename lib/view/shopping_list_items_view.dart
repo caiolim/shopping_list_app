@@ -15,6 +15,7 @@ class ShoppingListItemsView extends StatefulWidget {
 
 class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
   final _controller = ShoppingListItemsController();
+  final txtSearch = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -70,13 +71,18 @@ class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
                 children: [
                   Expanded(
                     child: TextFormFieldWidget(
+                      controller: txtSearch,
                       hintText: 'Pesquisar',
                       inputBorder: UnderlineInputBorder(),
                     ),
                   ),
                   SizedBox(width: 16.0),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => setState(
+                      () => _controller.findByName(
+                        text: txtSearch.text,
+                      ),
+                    ),
                     icon: Icon(
                       Icons.search_outlined,
                     ),
@@ -87,44 +93,51 @@ class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
             SizedBox(height: 32.0),
             Expanded(
               child: ListView.builder(
-                itemCount: _controller.shoppingList.items!.length,
+                itemCount: _controller.displayedItems.length,
                 itemBuilder: (context, index) => Column(
                   children: [
                     ListTile(
                       leading: Checkbox(
-                        value: _controller.shoppingList.items![index].isChecked,
+                        value: _controller.displayedItems[index].isChecked,
                         activeColor: Colors.blue,
                         onChanged: (value) {
                           setState(
-                            () => _controller
-                                    .shoppingList.items![index].isChecked =
-                                !_controller
-                                    .shoppingList.items![index].isChecked,
+                            () => _controller.displayedItems[index].isChecked =
+                                !_controller.displayedItems[index].isChecked,
                           );
                         },
                       ),
-                      title: Text(
-                        _controller.shoppingList.items![index].name,
-                        style: TextStyle(
-                          color:
-                              _controller.shoppingList.items![index].isChecked
+                      title: Column(
+                        children: [
+                          Text(
+                            _controller.displayedItems[index].name,
+                            style: TextStyle(
+                              color: _controller.displayedItems[index].isChecked
                                   ? Colors.grey[400]
-                                  : Colors.black,
-                          decorationColor: Colors.grey,
-                          decoration:
-                              _controller.shoppingList.items![index].isChecked
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                        ),
+                                  : Colors.blue,
+                              decorationColor: Colors.grey,
+                              decoration:
+                                  _controller.displayedItems[index].isChecked
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                            ),
+                          ),
+                          Text(
+                            'Quantidade: ${_controller.displayedItems[index].quantity}',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                            ),
+                          ),
+                        ],
                       ),
                       trailing: IconButton(
                         onPressed: () => showModalBottomSheet(
                           context: context,
                           builder: (ctx) => _modalCreateEditItem(
-                            id: _controller.shoppingList.items![index].id,
-                            name: _controller.shoppingList.items![index].name,
+                            id: _controller.displayedItems[index].id,
+                            name: _controller.displayedItems[index].name,
                             quantity:
-                                _controller.shoppingList.items![index].quantity,
+                                _controller.displayedItems[index].quantity,
                           ),
                         ),
                         icon: Icon(Icons.edit_outlined, size: 16.0),
@@ -185,7 +198,9 @@ class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
               ),
               id != null
                   ? IconButton(
-                      onPressed: () {},
+                      onPressed: () => setState(
+                        () => _controller.removeById(id: id, context: context),
+                      ),
                       icon: Icon(Icons.delete_outline),
                       color: Colors.red.shade900,
                       tooltip: 'Excluir',
@@ -220,6 +235,8 @@ class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
                   () => _controller.saveChanges(
                     context,
                     id: id,
+                    name: txtName.text,
+                    quantity: int.parse(txtQuantity.text),
                   ),
                 );
               }
