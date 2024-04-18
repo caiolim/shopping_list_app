@@ -1,6 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
+import './view/login_view.dart';
+import './view/register_view.dart';
 import './view/shopping_lists_view.dart';
 import './view/shopping_list_items_view.dart';
 
@@ -20,10 +22,25 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      color: Colors.blue,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+        ),
+      ),
       title: 'Navegação',
-      initialRoute: '/shopping_lists',
+      initialRoute: '/login',
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case '/login':
+            return MaterialPageRoute(
+              builder: (context) => const LoginView(),
+            );
+          case '/register':
+            return MaterialPageRoute(
+              builder: (context) => const RegisterView(),
+            );
           case '/shopping_lists':
             return MaterialPageRoute(
               builder: (context) => const ShoppingListsView(),
