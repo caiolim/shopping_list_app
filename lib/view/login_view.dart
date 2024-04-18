@@ -24,6 +24,18 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushNamed(context, '/about'),
+            icon: Icon(
+              Icons.info_outline,
+              color: Colors.blue,
+            ),
+          ),
+          SizedBox(width: 16.0),
+        ],
+      ),
       body: Form(
         key: formKeyLogin,
         child: Container(

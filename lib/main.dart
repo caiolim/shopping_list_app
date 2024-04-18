@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
+import './view/about_view.dart';
 import './view/login_view.dart';
 import './view/register_view.dart';
 import './view/shopping_lists_view.dart';
@@ -33,6 +34,10 @@ class MainApp extends StatelessWidget {
       initialRoute: '/login',
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case '/about':
+            return MaterialPageRoute(
+              builder: (context) => const AboutView(),
+            );
           case '/login':
             return MaterialPageRoute(
               builder: (context) => const LoginView(),
