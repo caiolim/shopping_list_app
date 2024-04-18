@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/controller/shopping_list_items_controller.dart';
 
+import '../controller/shopping_list_items_controller.dart';
 import '../widget/button_widget.dart';
 import '../widget/textformfield_widget.dart';
 
 class ShoppingListItemsView extends StatefulWidget {
-  const ShoppingListItemsView({super.key});
+  const ShoppingListItemsView({super.key, required this.id});
+  final String id;
 
   @override
   State<ShoppingListItemsView> createState() => _ShoppingListItemsViewState();
@@ -20,7 +21,7 @@ class _ShoppingListItemsViewState extends State<ShoppingListItemsView> {
 
   @override
   void initState() {
-    _controller.initState();
+    _controller.initState(id: widget.id);
     super.initState();
   }
 

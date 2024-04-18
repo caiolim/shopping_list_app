@@ -52,7 +52,11 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                 mainAxisSpacing: 8.0),
             itemBuilder: (context, index) => Card(
               child: InkWell(
-                onTap: () => Navigator.pushNamed(context, '/shoppingListItems'),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  '/shopping_list_items',
+                  arguments: _controller.shoppingLists[index].id,
+                ),
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +65,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        _controller.shoppingLists[index].description,
+                        _controller.shoppingLists[index].description ?? '',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 8.0,

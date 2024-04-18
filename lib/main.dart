@@ -22,9 +22,21 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Navegação',
       initialRoute: '/shopping_lists',
-      routes: {
-        '/shopping_lists': (context) => const ShoppingListsView(),
-        '/shoppingListItems': (context) => const ShoppingListItemsView(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/shopping_lists':
+            return MaterialPageRoute(
+              builder: (context) => const ShoppingListsView(),
+            );
+          case '/shopping_list_items':
+            final id = settings.arguments as String;
+
+            return MaterialPageRoute(
+              builder: (context) => ShoppingListItemsView(id: id),
+            );
+          default:
+            return null;
+        }
       },
     );
   }
